@@ -8,6 +8,8 @@ import { Router } from '../../routes';
 class CampaignNew extends Component{
     state={
         minimumContribution: '',
+        goal: '',
+        deadline: '',
         errorMessage: '',
         loading: false
     };
@@ -16,16 +18,16 @@ class CampaignNew extends Component{
     onSubmit = async (event)=> {
         //prevent directly sent back to backend server
        event.preventDefault();
-       this.setState({loading: true, errorMessage: ''});
+       this.setState({loading: true, errorMessage: '', deadline: '', goal: ''});
        try{
        const accounts=await web3.eth.getAccounts();
        await factory.methods
-       .createCampaign(this.state.minimumContribution)
+       .createCampaign(this.state.goal, this.state.deadline, this.state.minimumContribution)
        .send({
             from: accounts[0]
        });
        
-       //
+       //set the router to main page after submit the form
        Router.pushRoute('/');
     } catch(err) {
         this.setState({errorMessage: err.message});
@@ -37,9 +39,26 @@ class CampaignNew extends Component{
     render(){
         return (
             <Layout>
-                <h3>new Campaign!</h3>
-
+                <h3>new Campaign!</h3> //submit the form
                 <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
+                <Form.Field>
+                        <label>goal</label>
+                        <Input 
+                        label="wei" 
+                        labelPosition="right"
+                        value={this.state.goal} 
+                        onChange={event=>
+                            this.setState({goal:event.target.value})}/>
+                    </Form.Field>
+                    <Form.Field>
+                        <label>deadline</label>
+                        <Input 
+                        label="day" 
+                        labelPosition="right"
+                        value={this.state.deadline} 
+                        onChange={event=>
+                            this.setState({deadline:event.target.value})}/>
+                    </Form.Field>
                     <Form.Field>
                         <label>Minimum Contribution</label>
                         <Input 

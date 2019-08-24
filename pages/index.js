@@ -32,19 +32,21 @@ class CampaignIndex extends Component{
     render() {
         return (
         <Layout>
-        <div>
-        <h3>Open Campaigns</h3>
+            <div>
+                <h3>Open Campaigns</h3>
         <Link route='/campaign/new'>
             <a>
         <Button
-         floated="right"
+          floated="right"
           content="Creat Campaign"
           icon="add"
           primary></Button>
           </a>
-</Link>
-        {this.renderCampaigns()}
+        </Link>
 
+
+
+        {this.renderCampaigns()}
         </div>
         </Layout>
         );

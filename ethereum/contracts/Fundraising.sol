@@ -95,6 +95,24 @@ contract FundRaising{
         thisRequest.recepient.transfer(thisRequest.value);
         thisRequest.completed=true;
     }
+
+    function getSummary() public view retruns(
+        uint,uint,uint,uint,address
+    ) {
+        return (
+            minimumContribution,
+            this.balance,
+            requests.length,
+            voters,
+            admin,
+            goal,
+            deadline
+        );
+    }
+
+    function getRequestCount() public view retruns(uint){
+        return requests.length;
+    }
     
     
 }
