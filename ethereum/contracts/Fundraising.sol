@@ -23,7 +23,7 @@ contract FundRaising{
     uint public raisedMoney=0;
     struct Request{
         string description;
-        address recepient;
+        address recipient;
         uint value;
         bool completed;
         uint noOfVoters;
@@ -68,10 +68,10 @@ contract FundRaising{
         contributers[msg.sender]=0;
     }
     
-    function createRequest(string _description, address _recepient, uint _value) public adminOnly {
+    function createRequest(string _description, address _recipient, uint _value) public adminOnly {
         Request memory newRequest= Request({
             description : _description,
-            recepient : _recepient,
+            recipient : _recipient,
             value : _value,
             completed : false,
             noOfVoters:0
@@ -112,6 +112,10 @@ contract FundRaising{
 
     function getRequestCount() public view retruns(uint){
         return requests.length;
+    }
+
+    function approversCount() public view returns(uint){
+        return noOfContributer;
     }
     
     
